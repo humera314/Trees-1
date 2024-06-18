@@ -1,0 +1,27 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    #TC: O(n)
+    #SC:O(n)
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        # Define a helper function to perform the validation recursively
+        def helper(root, min_val, max_val):
+            # Base case: If the node is None, it's a valid BST
+            if root is None:
+                return True
+            
+            # Check if the current node's value is within the valid range
+            elif root.val <= min_val or root.val >= max_val:
+                return False
+
+            # Recursively check the left and right subtrees
+            return helper(root.left, min_val, root.val) and \
+                   helper(root.right, root.val, max_val)
+        
+        # Start the recursive validation from the root node
+        # Pass negative and positive infinity as initial minimum and maximum values
+        return helper(root, float('-inf'), float('inf'))
